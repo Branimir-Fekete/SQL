@@ -39,6 +39,14 @@ create table racun(
     foreign key (kupac_id) references kupac(id)
 );
 
+create table administrator(
+    id int primary key not null auto_increment,
+    ime varchar(50) not null,
+    prezime varchar(50) not null,
+    email varchar(75) not null,
+    lozinka varchar(50) not null,
+    OIB char(11)
+);
 
 select * from usluge;
 insert into usluge (naziv,cijena,kolicina,opis) values ('oranje',999.99,50,'oranje plugom');
