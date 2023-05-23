@@ -48,9 +48,9 @@ create table administrator(
     OIB char(11)
 );
 
-select * from usluge;
-insert into usluge (naziv,cijena,kolicina,opis) values ('oranje',999.99,50,'oranje plugom');
+select * from usluga;
+insert into usluga (naziv,cijena,kolicina,opis) values ('oranje',999.99,50,'oranje plugom');
 
 
-select * from proizvodi;
-insert into proizvodi (naziv,cijena,količina,opis) values ('pšenica',888.88,90,'prodajem pšenicu');
+select * from proizvod;
+insert into proizvod (naziv,cijena,kolicina,opis) values ('pšenica',888.88,90,'prodajem pšenicu');
