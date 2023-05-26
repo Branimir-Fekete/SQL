@@ -13,7 +13,7 @@ create table kupac(
 create table usluga(
     id int not null primary key auto_increment,
     naziv varchar(50) not null,
-    cijena decimal(10,2) not null,
+    cijena_po_Ha decimal(10,2) not null,
     kolicina decimal(10,2) not null,
     opis text
 );
@@ -49,8 +49,20 @@ create table administrator(
 );
 
 select * from usluga;
-insert into usluga (naziv,cijena,kolicina,opis) values ('oranje',999.99,50,'oranje plugom');
+insert into usluga (naziv,cijena_po_Ha,kolicina,opis) values 
+('Oranje',70,30,'Usluga oranja po hektaru'),
+('Sijanje',50,20,'Usluga sijanja po hektaru'),
+('Tanjuranje',40,40,'Usluga tanjuranja po hektaru');
 
 
 select * from proizvod;
-insert into proizvod (naziv,cijena,kolicina,opis) values ('pšenica',888.88,90,'prodajem pšenicu');
+insert into proizvod (naziv,cijena,kolicina,opis) values 
+('Pšenica',200,150,'Prodaja konvencionalne pšenice po toni'),
+('Soja',300,100,'Prodaja konvencionalne soje po toni'),
+('Kukuruz',150,75,'Prodaja konvencionalnog kukuruza po toni');
+
+select * from kupac;
+insert into kupac (nazivSubjekta,adresa,OIB,IBAN) values
+('Otkup d.o.o.','Kralja Tomislava 11, Tomislav grad','71788811640','HR5623600003555122791'),
+('Prekup d.d.','Kralaj Zvonimira 22, Osijek','48738466613','HR4125000094359835333'),
+('Dokup j.d.o.','Kralja Petra Krešimira 33, Vukovar','25494313864','HR7223600003316151945');
