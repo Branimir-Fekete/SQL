@@ -66,3 +66,5 @@ insert into kupac (nazivSubjekta,adresa,OIB,IBAN) values
 ('Otkup d.o.o.','Kralja Tomislava 11, Tomislav grad','71788811640','HR5623600003555122791'),
 ('Prekup d.d.','Kralaj Zvonimira 22, Osijek','48738466613','HR4125000094359835333'),
 ('Dokup j.d.o.','Kralja Petra Krešimira 33, Vukovar','25494313864','HR7223600003316151945');
+
+
