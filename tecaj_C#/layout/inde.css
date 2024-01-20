@@ -1,0 +1,9 @@
+h1 {
+  display: flex;
+  align-items: center;
+  justify-content: cener;
+  flex-direction: column;
+  border: 2px solid #00308f;
+  letter-spacing: 5px;
+  justify-content: space-between;
+}
