@@ -40,7 +40,7 @@ const Input = styled.input`
 function KolegijiScreen() {
   return (
     <>
-      <Header />
+    
       <HeadingName>Kolegiji</HeadingName>
       <FormContainer>
         <Form>

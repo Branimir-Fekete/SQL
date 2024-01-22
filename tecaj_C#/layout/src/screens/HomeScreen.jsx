@@ -22,7 +22,7 @@ function HomeScreen() {
   return (
     <>
       <HeadingName>Početna stranica</HeadingName>
-      <Header />
+     
 
       <StyledImage src='../images/img-1.png' />
     </>

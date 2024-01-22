@@ -40,7 +40,7 @@ const Input = styled.input`
 function IspitiScreen() {
   return (
     <>
-      <Header />
+    
       <HeadingName>Ispiti</HeadingName>
       <FormContainer>
         <Form>

@@ -40,7 +40,7 @@ const Input = styled.input`
 function SveucilistaScreen() {
   return (
     <>
-      <Header />
+    
       <HeadingName>Sveučilišta</HeadingName>
       <FormContainer>
         <Form>

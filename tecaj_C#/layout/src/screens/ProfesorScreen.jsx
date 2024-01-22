@@ -40,7 +40,7 @@ const Input = styled.input`
 function ProfesorScreen() {
   return (
     <>
-      <Header />
+     
       <HeadingName>Profesori</HeadingName>
       <FormContainer>
         <Form>
