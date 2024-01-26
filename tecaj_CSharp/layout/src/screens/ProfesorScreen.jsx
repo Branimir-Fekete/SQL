@@ -1,15 +1,7 @@
 import React, { useState } from 'react';
-import Header from '../components/Header';
 import styled from 'styled-components';
 import ButtonContainer from '../components/buttons/ButtonContainer';
-
-const HeadingName = styled.h1`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: 50px;
-  color: #00308f;
-`;
+import HeroText from '../components/navigation/HeroText';
 
 const FormContainer = styled.div`
   display: flex;
@@ -38,26 +30,54 @@ const Input = styled.input`
 `;
 
 function ProfesorScreen() {
+  const [formData, setFormData] = useState({
+    ime: '',
+    prezime: '',
+    oib: '',
+  });
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({
+      ...formData,
+      [name]: value,
+    });
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    console.log('Podaci su:', formData);
+  };
+
   return (
     <>
-     
-      <HeadingName>Profesori</HeadingName>
+      <HeroText
+        beforeText='Profesori'
+        text='Profesori'
+      />
       <FormContainer>
-        <Form>
+        <Form onSubmit={handleSubmit}>
           <Input
             type='text'
             name='ime'
             placeholder='Ime'
+            value={formData.ime}
+            onChange={handleChange}
           />
           <Input
             type='text'
             name='prezime'
             placeholder='Prezime'
+            value={formData.prezime}
+            onChange={handleChange}
           />
           <Input
             type='text'
             name='oib'
             placeholder='OIB'
+            value={formData.oib}
+            onChange={handleChange}
           />
           <ButtonContainer />
         </Form>

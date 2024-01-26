@@ -1,15 +1,7 @@
 import React, { useState } from 'react';
-import Header from '../components/Header';
 import styled from 'styled-components';
 import ButtonContainer from '../components/buttons/ButtonContainer';
-
-const HeadingName = styled.h1`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: 50px;
-  color: #00308f;
-`;
+import HeroText from '../components/navigation/HeroText';
 
 const FormContainer = styled.div`
   display: flex;
@@ -38,21 +30,46 @@ const Input = styled.input`
 `;
 
 function SveucilistaScreen() {
+  const [formData, setFormData] = useState({
+    naziv: '',
+    adresa: '',
+  });
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({
+      ...formData,
+      [name]: value,
+    });
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    console.log('Podaci su:', formData);
+  };
+
   return (
     <>
-    
-      <HeadingName>Sveučilišta</HeadingName>
+      <HeroText
+        beforeText='Sveučilišta'
+        text='Sveučilišta'
+      />
       <FormContainer>
-        <Form>
+        <Form onSubmit={handleSubmit}>
           <Input
             type='text'
             name='naziv'
             placeholder='Naziv sveučilišta'
+            value={formData.naziv}
+            onChange={handleChange}
           />
           <Input
             type='text'
             name='adresa'
             placeholder='Adresa sveučilišta'
+            value={formData.adresa}
+            onChange={handleChange}
           />
           <ButtonContainer />
         </Form>

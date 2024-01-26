@@ -1,15 +1,7 @@
 import React, { useState } from 'react';
-import Header from '../components/Header';
 import styled from 'styled-components';
 import ButtonContainer from '../components/buttons/ButtonContainer';
-
-const HeadingName = styled.h1`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: 50px;
-  color: #00308f;
-`;
+import HeroText from '../components/navigation/HeroText';
 
 const FormContainer = styled.div`
   display: flex;
@@ -38,31 +30,62 @@ const Input = styled.input`
 `;
 
 function IspitiScreen() {
+  const [formData, setFormData] = useState({
+    naziv: '',
+    datum: '',
+    ocijena: '',
+    prolaz: '',
+  });
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({
+      ...formData,
+      [name]: value,
+    });
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    console.log('Podaci su:', formData);
+  };
+
   return (
     <>
-    
-      <HeadingName>Ispiti</HeadingName>
+      <HeroText
+        beforeText='Ispiti'
+        text='Ispiti'
+      />
       <FormContainer>
-        <Form>
+        <Form onSubmit={handleSubmit}>
           <Input
             type='text'
             name='naziv'
             placeholder='Naziv ispita'
+            value={formData.naziv}
+            onChange={handleChange}
           />
           <Input
             type='date'
             name='datum'
             placeholder='Datum'
+            value={formData.datum}
+            onChange={handleChange}
           />
           <Input
             type='number'
             name='ocijena'
             placeholder='Ocijena'
+            value={formData.ocijena}
+            onChange={handleChange}
           />
           <Input
             type='number'
             name='prolaz'
             placeholder='Prolaz (0 ili 1)'
+            value={formData.prolaz}
+            onChange={handleChange}
           />
           <ButtonContainer />
         </Form>

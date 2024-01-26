@@ -1,15 +1,7 @@
 import React, { useState } from 'react';
-import Header from '../components/Header';
 import styled from 'styled-components';
 import ButtonContainer from '../components/buttons/ButtonContainer';
-
-const HeadingName = styled.h1`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: 50px;
-  color: #00308f;
-`;
+import HeroText from '../components/navigation/HeroText';
 
 const FormContainer = styled.div`
   display: flex;
@@ -38,36 +30,70 @@ const Input = styled.input`
 `;
 
 function StudentScreen() {
+  const [formData, setFormData] = useState({
+    ime: '',
+    prezime: '',
+    datumRodjenja: '',
+    jmbag: '',
+    godinaStudija: 1,
+  });
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({
+      ...formData,
+      [name]: value,
+    });
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    console.log('Podaci forme:', formData);
+  };
+
   return (
     <>
-     
-      <HeadingName>Studenti</HeadingName>
+      <HeroText
+        beforeText='Studenti'
+        text='Studenti'
+      />
       <FormContainer>
-        <Form>
+        <Form onSubmit={handleSubmit}>
           <Input
             type='text'
             name='ime'
             placeholder='Ime'
+            value={formData.ime}
+            onChange={handleChange}
           />
           <Input
             type='text'
             name='prezime'
             placeholder='Prezime'
+            value={formData.prezime}
+            onChange={handleChange}
           />
           <Input
             type='date'
             name='datumRodjenja'
             placeholder='Datum rođenja'
+            value={formData.datumRodjenja}
+            onChange={handleChange}
           />
           <Input
             type='number'
             name='jmbag'
             placeholder='JMBAG'
+            value={formData.jmbag}
+            onChange={handleChange}
           />
           <Input
             type='number'
-            name='godinastudija'
+            name='godinaStudija'
             placeholder='Godina Studija'
+            value={formData.godinaStudija}
+            onChange={handleChange}
           />
 
           <ButtonContainer />

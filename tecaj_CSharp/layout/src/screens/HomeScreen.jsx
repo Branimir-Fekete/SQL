@@ -1,13 +1,5 @@
-import Header from '../components/Header';
 import styled from 'styled-components';
-
-const HeadingName = styled.h1`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: 50px;
-  color: #00308f;
-`;
+import HeroText from '../components/navigation/HeroText';
 
 const StyledImage = styled.img`
   display: flex;
@@ -21,8 +13,10 @@ const StyledImage = styled.img`
 function HomeScreen() {
   return (
     <>
-      <HeadingName>Početna stranica</HeadingName>
-     
+      <HeroText
+        text='Početna stranica'
+        beforeText='Početna stranica'
+      />
 
       <StyledImage src='../images/img-1.png' />
     </>
