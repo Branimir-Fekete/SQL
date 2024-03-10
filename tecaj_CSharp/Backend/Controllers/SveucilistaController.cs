@@ -51,7 +51,7 @@ namespace Backend.Controllers
         public IActionResult Delete(int sveuciliste_id)
         {
             var sveucilistaIzBaze = _context.Sveucilista.Find(sveuciliste_id);
-
+                       
             _context.Sveucilista.Remove(sveucilistaIzBaze);
             _context.SaveChanges();
             return new JsonResult(new { poruka = "Obrisano" });
