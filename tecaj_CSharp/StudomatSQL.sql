@@ -1,163 +1,210 @@
 USE master;
+
 GO
 DROP DATABASE IF EXISTS studomat;
+
 CREATE DATABASE studomat;
-GO
-USE studomat;
 
-CREATE TABLE sveucilista (
-  sveuciliste_id INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
-  naziv VARCHAR(255) NOT NULL,
-  adresa VARCHAR(255) NOT NULL
-);
+GO USE studomat;
 
-CREATE TABLE profesori (
-  profesor_id INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
-  ime VARCHAR(100) NOT NULL,
-  prezime VARCHAR(100) NOT NULL,
-  oib CHAR(11),
-  sveuciliste_id INT
-);
+CREATE TABLE
+  sveucilista (
+    sifra INT IDENTITY (1, 1) NOT NULL PRIMARY KEY,
+    naziv VARCHAR(255) NOT NULL,
+    adresa VARCHAR(255) NOT NULL
+  );
 
-CREATE TABLE kolegiji (
-  kolegij_id INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
-  naziv VARCHAR(255) NOT NULL,
-  opis TEXT
-);
+CREATE TABLE
+  profesori (
+    sifra INT IDENTITY (1, 1) NOT NULL PRIMARY KEY,
+    ime VARCHAR(100) NOT NULL,
+    prezime VARCHAR(100) NOT NULL,
+    oib CHAR(11),
+    sveuciliste_sifra INT,
+    FOREIGN KEY (sveuciliste_sifra) REFERENCES sveucilista (sifra)
+  );
 
-CREATE TABLE profesor_kolegij (
-  profesor_id INT,
-  kolegij_id INT
-);
+CREATE TABLE
+  kolegiji (
+    sifra INT IDENTITY (1, 1) NOT NULL PRIMARY KEY,
+    naziv VARCHAR(255) NOT NULL,
+    opis TEXT
+  );
 
-CREATE TABLE ispiti (
-  ispit_id INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
-  naziv VARCHAR(255) NOT NULL,
-  datum DATE NOT NULL,
-  ocijena INT NOT NULL,
-  prolaz BIT,
-  kolegij_id INT
-);
+CREATE TABLE
+  profesor_kolegij (
+    profesor_sifra INT,
+    kolegij_sifra INT,
+    FOREIGN KEY (profesor_sifra) REFERENCES profesori (sifra),
+    FOREIGN KEY (kolegij_sifra) REFERENCES kolegiji (sifra)
+  );
 
-CREATE TABLE studenti (
-  student_id INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
-  ime VARCHAR(100) NOT NULL,
-  prezime VARCHAR(100) NOT NULL,
-  email VARCHAR(100) NOT NULL,
-  JMBAG CHAR(11),
-  godina_studija INT,
-  sveuciliste_id INT
-);
+CREATE TABLE
+  ispiti (
+    sifra INT IDENTITY (1, 1) NOT NULL PRIMARY KEY,
+    naziv VARCHAR(255) NOT NULL,
+    datum DATE NOT NULL,
+    ocijena INT NOT NULL,
+    prolaz BIT,
+    kolegij_sifra INT,
+    FOREIGN KEY (kolegij_sifra) REFERENCES kolegiji (sifra)
+  );
 
-CREATE TABLE student_profesori (
-  student_id INT,
-  profesor_id INT
-);
+CREATE TABLE
+  studenti (
+    sifra INT IDENTITY (1, 1) NOT NULL PRIMARY KEY,
+    ime VARCHAR(100) NOT NULL,
+    prezime VARCHAR(100) NOT NULL,
+    email VARCHAR(100) NOT NULL,
+    JMBAG CHAR(11),
+    godina_studija INT,
+    sveuciliste_sifra INT,
+    FOREIGN KEY (sveuciliste_sifra) REFERENCES sveucilista (sifra)
+  );
 
-CREATE TABLE student_kolegiji (
-  student_id INT,
-  kolegij_id INT
-);
+CREATE TABLE
+  student_profesori (
+    student_sifra INT,
+    profesor_sifra INT,
+    FOREIGN KEY (student_sifra) REFERENCES studenti (sifra),
+    FOREIGN KEY (profesor_sifra) REFERENCES profesori (sifra)
+  );
 
-CREATE TABLE student_ispiti (
-  student_id INT,
-  ispit_id INT
-);
+CREATE TABLE
+  student_kolegiji (
+    student_sifra INT,
+    kolegij_sifra INT,
+    FOREIGN KEY (student_sifra) REFERENCES studenti (sifra),
+    FOREIGN KEY (kolegij_sifra) REFERENCES kolegiji (sifra)
+  );
 
+CREATE TABLE
+  student_ispiti (
+    student_sifra INT,
+    ispit_sifra INT,
+    FOREIGN KEY (student_sifra) REFERENCES studenti (sifra),
+    FOREIGN KEY (ispit_sifra) REFERENCES ispiti (sifra)
+  );
 
 /*
 ====================================================================================
 ALTER TABLE (STVARANJE VEZA ZA TABLICE)
 ====================================================================================
-*/
-
-ALTER TABLE ispiti
-ADD FOREIGN KEY (kolegij_id) REFERENCES kolegiji(kolegij_id);
-
-ALTER TABLE profesori
-ADD FOREIGN KEY (sveuciliste_id) REFERENCES sveucilista(sveuciliste_id);
-
-ALTER TABLE studenti
-ADD FOREIGN KEY (sveuciliste_id) REFERENCES sveucilista(sveuciliste_id);
-
-ALTER TABLE profesor_kolegij
-ADD FOREIGN KEY (kolegij_id) REFERENCES kolegiji(kolegij_id);
-
-ALTER TABLE profesor_kolegij
-ADD FOREIGN KEY (profesor_id) REFERENCES profesori(profesor_id);
-
-ALTER TABLE studenti
-ADD FOREIGN KEY (sveuciliste_id) REFERENCES sveucilista(sveuciliste_id);
-
-ALTER TABLE student_profesori
-ADD FOREIGN KEY (student_id) REFERENCES studenti(student_id);
-
-ALTER TABLE student_profesori
-ADD FOREIGN KEY (profesor_id) REFERENCES profesori(profesor_id);
-
-ALTER TABLE student_kolegiji
-ADD FOREIGN KEY (student_id) REFERENCES studenti(student_id);
-
-ALTER TABLE student_kolegiji
-ADD FOREIGN KEY (kolegij_id) REFERENCES kolegiji(kolegij_id);
-
-ALTER TABLE student_ispiti
-ADD FOREIGN KEY (student_id) REFERENCES studenti(student_id);
-
-ALTER TABLE student_ispiti
-ADD FOREIGN KEY (ispit_id) REFERENCES ispiti(ispit_id);
-
-
+ */
+--ALTER TABLE ispiti
+--ADD FOREIGN KEY (sifra) REFERENCES kolegiji(sifra);
+--ALTER TABLE profesori
+--ADD FOREIGN KEY (sifra) REFERENCES sveucilista(sifra);
+--ALTER TABLE studenti
+--ADD FOREIGN KEY (sifra) REFERENCES sveucilista(sifra);
+--ALTER TABLE profesor_kolegij
+--ADD FOREIGN KEY (kolegij) REFERENCES kolegiji(sifra);
+--ALTER TABLE profesor_kolegij
+--ADD FOREIGN KEY (profesor) REFERENCES profesori(sifra);
+--ALTER TABLE studenti
+--ADD FOREIGN KEY (sifra) REFERENCES sveucilista(sifra);
+--ALTER TABLE student_profesori
+--ADD FOREIGN KEY (student) REFERENCES studenti(sifra);
+--ALTER TABLE student_profesori
+--ADD FOREIGN KEY (profesor) REFERENCES profesori(sifra);
+--ALTER TABLE student_kolegiji
+--ADD FOREIGN KEY (student) REFERENCES studenti(sifra);
+--ALTER TABLE student_kolegiji
+--ADD FOREIGN KEY (kolegij) REFERENCES kolegiji(sifra);
+--ALTER TABLE student_ispiti
+--ADD FOREIGN KEY (student) REFERENCES studenti(sifra);
+--ALTER TABLE student_ispiti
+--ADD FOREIGN KEY (ispit) REFERENCES ispiti(sifra);
 /*
 ====================================================================================
 INSERT (UNOS PODATAKA U TABLICE)
 ====================================================================================
-*/
-
-INSERT INTO sveucilista (naziv, adresa) VALUES
-  ('SveuËiliöte Harvard', 'SAD'),
-  ('SveuËiliöte Oxford', 'Velika Britanija'),
-  ('SveuËiliöte Stanford', 'SAD'),
+ */
+INSERT INTO
+  sveucilista (naziv, adresa)
+VALUES
+  ('Sveuƒçili≈°te Harvard', 'SAD'),
+  ('Sveuƒçili≈°te Oxford', 'Velika Britanija'),
+  ('Sveuƒçili≈°te Stanford', 'SAD'),
   ('MIT', 'SAD'),
   ('Kalifornijski institut za tehnologiju', 'SAD'),
-  ('SveuËiliöte Cambridge', 'Velika Britanija'),
-  ('ETH Z¸rich', 'ävicarska'),
-  ('SveuËiliöte u Torontu', 'Kanada'),
-  ('Nacionalno sveuËiliöte u Singapuru', 'Singapur'),
-  ('SveuËiliöte u Sydneyju', 'Australija');
+  ('Sveuƒçili≈°te Cambridge', 'Velika Britanija'),
+  ('ETH Z√ºrich', '≈†vicarska'),
+  ('Sveuƒçili≈°te u Torontu', 'Kanada'),
+  ('Nacionalno sveuƒçili≈°te u Singapuru', 'Singapur'),
+  ('Sveuƒçili≈°te u Sydneyju', 'Australija');
 
-
-
-INSERT INTO profesori (ime, prezime, oib, sveuciliste_id) VALUES
+INSERT INTO
+  profesori (ime, prezime, oib, sveuciliste_sifra)
+VALUES
   ('Ivan', 'Horvat', '12345678901', 1),
-  ('Marija', 'KovaË', '23456789012', 2),
-  ('Marko', 'BabiÊ', '34567890123', 3),
-  ('Ana', 'PetroviÊ', '45678901234', 4),
-  ('Ivana', 'JuriÊ', '56789012345', 5),
+  ('Marija', 'Kovaƒç', '23456789012', 2),
+  ('Marko', 'Babiƒá', '34567890123', 3),
+  ('Ana', 'Petroviƒá', '45678901234', 4),
+  ('Ivana', 'Juriƒá', '56789012345', 5),
   ('Ante', 'Novak', '67890123456', 6),
-  ('Maja', 'KneûeviÊ', '78901234567', 7),
-  ('Tomislav', 'VukoviÊ', '89012345678', 8),
-  ('Martina', 'äimunoviÊ', '90123456789', 9),
-  ('Petar', 'RadiÊ', '01234567890', 10);
+  ('Maja', 'Kne≈æeviƒá', '78901234567', 7),
+  ('Tomislav', 'Vukoviƒá', '89012345678', 8),
+  ('Martina', '≈†imunoviƒá', '90123456789', 9),
+  ('Petar', 'Radiƒá', '01234567890', 10);
 
-INSERT INTO kolegiji (naziv, opis) VALUES
-  ('Matematika', 'Ovaj kolegij pokriva osnove matematike.'),
-  ('Fizika', 'Fizika je prirodna znanost koja prouËava temeljne zakone prirode.'),
-  ('Informatika', 'Kolegij informatike bavi se raËunalnim znanostima i programiranjem.'),
-  ('Povijest umjetnosti', 'ProuËava se povijest razvoja umjetnosti kroz razliËite epohe.'),
-  ('Ekonomija', 'Ekonomija se bavi prouËavanjem proizvodnje, distribucije i potroönje resursa.'),
-  ('Biologija', 'Biologija je znanost koja prouËava ûive organizme i njihove interakcije.'),
-  ('Sociologija', 'Sociologija se bavi prouËavanjem druötva i druötvenih odnosa.'),
-  ('Psihologija', 'Psihologija prouËava ljudsko ponaöanje i mentalne procese.'),
-  ('Lingvistika', 'Lingvistika se bavi prouËavanjem jezika i njegovih aspekata.'),
-  ('Arhitektura', 'Arhitektura je umjetnost projektiranja i izgradnje graevina i prostora.');
+INSERT INTO
+  kolegiji (naziv, opis)
+VALUES
+  (
+    'Matematika',
+    'Ovaj kolegij pokriva osnove matematike.'
+  ),
+  (
+    'Fizika',
+    'Fizika je prirodna znanost koja prouƒçava temeljne zakone prirode.'
+  ),
+  (
+    'Informatika',
+    'Kolegij informatike bavi se raƒçunalnim znanostima i programiranjem.'
+  ),
+  (
+    'Povijest umjetnosti',
+    'Prouƒçava se povijest razvoja umjetnosti kroz razliƒçite epohe.'
+  ),
+  (
+    'Ekonomija',
+    'Ekonomija se bavi prouƒçavanjem proizvodnje, distribucije i potro≈°nje resursa.'
+  ),
+  (
+    'Biologija',
+    'Biologija je znanost koja prouƒçava ≈æive organizme i njihove interakcije.'
+  ),
+  (
+    'Sociologija',
+    'Sociologija se bavi prouƒçavanjem dru≈°tva i dru≈°tvenih odnosa.'
+  ),
+  (
+    'Psihologija',
+    'Psihologija prouƒçava ljudsko pona≈°anje i mentalne procese.'
+  ),
+  (
+    'Lingvistika',
+    'Lingvistika se bavi prouƒçavanjem jezika i njegovih aspekata.'
+  ),
+  (
+    'Arhitektura',
+    'Arhitektura je umjetnost projektiranja i izgradnje graƒëevina i prostora.'
+  );
 
-  
-INSERT INTO ispiti (naziv, datum, ocijena, prolaz, kolegij_id) VALUES
+INSERT INTO
+  ispiti (naziv, datum, ocijena, prolaz, kolegij_sifra)
+VALUES
   ('Ispit iz Matematike', '2023-01-15', 3, 1, 1),
   ('Ispit iz Fizike', '2023-01-16', 4, 1, 2),
   ('Ispit iz Informatike', '2023-01-17', 5, 1, 3),
-  ('Ispit iz Povijesti umjetnosti', '2023-01-18', 2, 0, 4),
+  (
+    'Ispit iz Povijesti umjetnosti',
+    '2023-01-18',
+    2,
+    0,
+    4
+  ),
   ('Ispit iz Ekonomije', '2023-01-19', 4, 1, 5),
   ('Ispit iz Biologije', '2023-01-20', 3, 1, 6),
   ('Ispit iz Sociologije', '2023-01-21', 5, 1, 7),
@@ -165,31 +212,100 @@ INSERT INTO ispiti (naziv, datum, ocijena, prolaz, kolegij_id) VALUES
   ('Ispit iz Lingvistike', '2023-01-23', 5, 1, 9),
   ('Ispit iz Arhitekture', '2023-01-24', 4, 1, 10);
 
-INSERT INTO studenti (ime, prezime, email, JMBAG, godina_studija, sveuciliste_id) VALUES
-  ('Ana', 'Horvat', 'ana.horvat@efos.hr', '12345678901', 1, 1),
-  ('Ivan', 'KovaË', 'ivan.kovac@fazos.hr', '23456789012', 2, 2),
-  ('Marta', 'BabiÊ', 'marta.babic@gfos.hr', '34567890123', 3, 3),
-  ('Petar', 'Novak', 'petar.novak@ffos.hr', '45678901234', 1, 4),
-  ('Elena', 'PetroviÊ', 'elena.petrovic@efos.hr', '56789012345', 2, 5),
-  ('Marko', 'Horvat', 'marko.horvat@fazos.hr', '67890123456', 3, 6),
-  ('Lea', 'KovaËeviÊ', 'lea.kovacevic@gfos.hr', '78901234567', 1, 7),
-  ('Filip', 'MariÊ', 'filip.maric@ffos.hr', '89012345678', 2, 8),
-  ('Jana', 'PeriÊ', 'jana.peric@efos.hr', '90123456789', 3, 9),
-  ('Luka', 'KovaËiÊ', 'luka.kovacic@fazos.hr', '01234567890', 1, 10);
+INSERT INTO
+  studenti (
+    ime,
+    prezime,
+    email,
+    JMBAG,
+    godina_studija,
+    sveuciliste_sifra
+  )
+VALUES
+  (
+    'Ana',
+    'Horvat',
+    'ana.horvat@efos.hr',
+    '12345678901',
+    1,
+    1
+  ),
+  (
+    'Ivan',
+    'Kovaƒç',
+    'ivan.kovac@fazos.hr',
+    '23456789012',
+    2,
+    2
+  ),
+  (
+    'Marta',
+    'Babiƒá',
+    'marta.babic@gfos.hr',
+    '34567890123',
+    3,
+    3
+  ),
+  (
+    'Petar',
+    'Novak',
+    'petar.novak@ffos.hr',
+    '45678901234',
+    1,
+    4
+  ),
+  (
+    'Elena',
+    'Petroviƒá',
+    'elena.petrovic@efos.hr',
+    '56789012345',
+    2,
+    5
+  ),
+  (
+    'Marko',
+    'Horvat',
+    'marko.horvat@fazos.hr',
+    '67890123456',
+    3,
+    6
+  ),
+  (
+    'Lea',
+    'Kovaƒçeviƒá',
+    'lea.kovacevic@gfos.hr',
+    '78901234567',
+    1,
+    7
+  ),
+  (
+    'Filip',
+    'Mariƒá',
+    'filip.maric@ffos.hr',
+    '89012345678',
+    2,
+    8
+  ),
+  (
+    'Jana',
+    'Periƒá',
+    'jana.peric@efos.hr',
+    '90123456789',
+    3,
+    9
+  ),
+  (
+    'Luka',
+    'Kovaƒçiƒá',
+    'luka.kovacic@fazos.hr',
+    '01234567890',
+    1,
+    10
+  );
 
-INSERT INTO profesor_kolegij (profesor_id, kolegij_id) VALUES
-(1, 1),
-(2, 2),
-(3, 3),
-(4, 4),
-(5, 5),
-(6, 6),
-(7, 7),
-(8, 8),
-(9, 9),
-(10, 10);
-  
-INSERT INTO student_profesori (student_id, profesor_id) VALUES
+INSERT INTO
+  profesor_kolegij (profesor_sifra, kolegij_sifra)
+VALUES
   (1, 1),
   (2, 2),
   (3, 3),
@@ -201,7 +317,9 @@ INSERT INTO student_profesori (student_id, profesor_id) VALUES
   (9, 9),
   (10, 10);
 
-INSERT INTO student_kolegiji (student_id, kolegij_id) VALUES
+INSERT INTO
+  student_profesori (student_sifra, profesor_sifra)
+VALUES
   (1, 1),
   (2, 2),
   (3, 3),
@@ -213,7 +331,9 @@ INSERT INTO student_kolegiji (student_id, kolegij_id) VALUES
   (9, 9),
   (10, 10);
 
-INSERT INTO student_ispiti (student_id, ispit_id) VALUES
+INSERT INTO
+  student_kolegiji (student_sifra, kolegij_sifra)
+VALUES
   (1, 1),
   (2, 2),
   (3, 3),
@@ -225,18 +345,66 @@ INSERT INTO student_ispiti (student_id, ispit_id) VALUES
   (9, 9),
   (10, 10);
 
- /*
+INSERT INTO
+  student_ispiti (student_sifra, ispit_sifra)
+VALUES
+  (1, 1),
+  (2, 2),
+  (3, 3),
+  (4, 4),
+  (5, 5),
+  (6, 6),
+  (7, 7),
+  (8, 8),
+  (9, 9),
+  (10, 10);
+
+/*
 ====================================================================================
 SELECT (PROVJERA STANJA TABLICA)
 ====================================================================================
-*/
+ */
+SELECT
+  *
+FROM
+  sveucilista;
 
-SELECT * FROM sveucilista;
-SELECT * FROM profesori;
-SELECT * FROM kolegiji;
-SELECT * FROM ispiti;
-SELECT * FROM studenti;
-SELECT * FROM profesor_kolegij;
-SELECT * FROM student_profesori;
-SELECT * FROM student_kolegiji;
-SELECT * FROM student_ispiti;
+SELECT
+  *
+FROM
+  profesori;
+
+SELECT
+  *
+FROM
+  kolegiji;
+
+SELECT
+  *
+FROM
+  ispiti;
+
+SELECT
+  *
+FROM
+  studenti;
+
+SELECT
+  *
+FROM
+  profesor_kolegij;
+
+SELECT
+  *
+FROM
+  student_profesori;
+
+SELECT
+  *
+FROM
+  student_kolegiji;
+
+SELECT
+  *
+FROM
+  student_ispiti;
