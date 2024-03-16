@@ -7,7 +7,7 @@ namespace Backend.Controllers
 
     [ApiController]
     [Route("api/v1/[controller]")]
-    public class SveucilistaController
+    public class SveucilistaController : ControllerBase
     {
         private readonly StudomatContext _context;
 
@@ -31,10 +31,10 @@ namespace Backend.Controllers
         }
 
         [HttpPut]
-        [Route("{sveuciliste_id:int}")]
-        public IActionResult Put(int sveuciliste_id, Sveucilista sveucilista)
+        [Route("{sifra:int}")]
+        public IActionResult Put(int sifra, Sveucilista sveucilista)
         {
-            var sveucilistaIzBaze = _context.Sveucilista.Find(sveuciliste_id);
+            var sveucilistaIzBaze = _context.Sveucilista.Find(sifra);
 
             sveucilistaIzBaze.Naziv = sveucilista.Naziv;
             sveucilistaIzBaze.Adresa = sveucilista.Adresa;
@@ -46,12 +46,12 @@ namespace Backend.Controllers
         }
 
         [HttpDelete]
-        [Route("{sveuciliste_id:int}")]
+        [Route("{sifra:int}")]
         [Produces("application/json")]
-        public IActionResult Delete(int sveuciliste_id)
+        public IActionResult Delete(int sifra)
         {
-            var sveucilistaIzBaze = _context.Sveucilista.Find(sveuciliste_id);
-                       
+            var sveucilistaIzBaze = _context.Sveucilista.Find(sifra);
+
             _context.Sveucilista.Remove(sveucilistaIzBaze);
             _context.SaveChanges();
             return new JsonResult(new { poruka = "Obrisano" });
