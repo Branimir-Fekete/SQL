@@ -8,6 +8,8 @@ import IspitiScreen from './screens/IspitiScreen';
 import SveucilistaScreen from './screens/SveucilistaScreen';
 import Header from './components/navigation/Header';
 import GlobalStyle from './GlobalStyle';
+import { RoutesNames } from './constants';
+import SveucilistaDodaj from './screens/SveucilistaDodaj';
 
 function App() {
   return (
@@ -44,6 +46,14 @@ function App() {
             <Route
               path='/SveucilistaScreen'
               element={<SveucilistaScreen />}
+            />
+            <Route
+              path={RoutesNames.SVEUCILISTE_PREGLED}
+              element={<SveucilistaScreen />}
+            />
+            <Route
+              path={RoutesNames.SVEUCILISTE_NOVI}
+              element={<SveucilistaDodaj />}
             />
           </Route>
         </Routes>

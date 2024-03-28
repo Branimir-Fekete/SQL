@@ -1,9 +1,12 @@
 import { useEffect, useState } from 'react';
 import Container from 'react-bootstrap/Container';
-import { Button, Table } from 'react-bootstrap';
+import { Table } from 'react-bootstrap';
 import SveucilisteService from '../services/SveucilisteService';
 import styled from 'styled-components';
 import HeroText from '../components/navigation/HeroText';
+import DeleteButton from '../components/buttons/DeleteButton';
+import { Link } from 'react-router-dom';
+import { RoutesNames } from '../constants';
 
 const StyledTable = styled(Table)`
   margin-top: 20px;
@@ -14,7 +17,7 @@ const StyledTable = styled(Table)`
   th {
     padding: 10px;
     text-align: center;
-    border: 1px solid black;
+    border-bottom: 1px solid black;
   }
 `;
 
@@ -22,7 +25,8 @@ const CenteredContainer = styled(Container)`
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh; /* Prilagodite visinu prema potrebi */
+  flex-direction: column;
+  min-height: 100vh;
 `;
 
 export default function SveucilistaScreen() {
@@ -41,6 +45,20 @@ export default function SveucilistaScreen() {
     dohvatiSveucilista();
   }, []);
 
+  async function obrisiAsync(sifra) {
+    const odgovor = await SveucilisteService._delete(sifra);
+    if (odgovor.greska) {
+      console.log(odgovor.poruka);
+      alert('Pogledaj konzolu');
+      return;
+    }
+    dohvatiSveucilista();
+  }
+
+  function obrisi(sifra) {
+    obrisiAsync(sifra);
+  }
+
   return (
     <>
       <HeroText
@@ -48,6 +66,7 @@ export default function SveucilistaScreen() {
         text='Svučilišta'
       />
       <CenteredContainer>
+        <Link to={RoutesNames.SVEUCILISTE_NOVI}>Dodaj sveučičište</Link>
         <StyledTable
           striped
           bordered
@@ -68,12 +87,9 @@ export default function SveucilistaScreen() {
                   <td>{sveuciliste.naziv}</td>
                   <td>{sveuciliste.adresa}</td>
                   <td>
-                    <Button
-                      onClick={() => console.log('Obriši')}
-                      variant='danger'
-                    >
+                    <DeleteButton onClick={() => obrisi(sveuciliste.sifra)}>
                       Obriši
-                    </Button>
+                    </DeleteButton>
                   </td>
                 </tr>
               ))}

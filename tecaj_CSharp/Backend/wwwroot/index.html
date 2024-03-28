@@ -9,6 +9,7 @@
         body {
             height: 100vh;
             display: flex;
+            flex-direction: column;
             justify-content: center;
             align-items: center;
             font-family: sans-serif;
@@ -26,6 +27,7 @@
             background: transparent;
             font-size: 28px;
             color: white;
+            margin: 25px;
         }
 
             a:before {
@@ -84,37 +86,41 @@
                 color: #00ff2a;
                 text-shadow: 0 0 5px #0f0, 0 0 15px #0f0, 0 0 30px #0f0;
             }
+
+        #inputPosition {
+            margin-top: 20px;
+        }
+
+        #container {
+            margin: 20px;
+        }
     </style>
 
 </head>
 <body>
 
-    <div calss="container">
+    <div id="container">
+        <h2 class="text">C ŠARP TEXT...</h2>
         <a href="/swagger/index.html">API</a>
-        <h1>pozdrav svijete</h1>
-        <h2 class="text">JavaScript Text</h2>
-        <h3">
-            pozdrav sviejte</h3>
-            <h4>pozdravsviejte</h4>
-
-            <p>radi li paragram</p>
-            <input />
+    </div>
+    <div id="inputPosition">
+        <p>Neki naslov</p>
+        <input />
     </div>
 
 
-
     <script>
-      let text = document.querySelector('.text');
-      let spans = text.innerText
-        .split('')
-        .map((letter, i) => {
-          return `<span style="transition-delay:${i * 40}ms;
-            filter:hue-rotate(${i * 30}deg)
-          ">${letter}</span>`;
-        })
-        .join('');
+        let text = document.querySelector('.text');
+        let spans = text.innerText
+            .split('')
+            .map((letter, i) => {
+                return `<span style="transition-delay:${i * 40}ms;
+                                        filter:hue-rotate(${i * 30}deg)
+                                      ">${letter}</span>`;
+            })
+            .join('');
 
-      text.innerHTML = spans;
+        text.innerHTML = spans;
         console.log(spans);
 
 

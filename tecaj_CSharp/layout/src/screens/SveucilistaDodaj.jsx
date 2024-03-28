@@ -1,0 +1,95 @@
+import React from 'react';
+import { useNavigate } from 'react-router-dom';
+import SveucilisteService from '../services/SveucilisteService';
+import { RoutesNames } from '../constants';
+import styled from 'styled-components';
+import HeroText from '../components/navigation/HeroText';
+import { Form, Button } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
+import SubmitButton from '../components/buttons/SubmitButton';
+
+const CenteredContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  min-height: 100vh;
+`;
+
+const StyledFormContainer = styled.div`
+  width: 50%;
+  margin-top: 20px;
+  padding: 20px;
+`;
+
+const StyledButtonContainer = styled.div`
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+`;
+
+function SveucilistaDodaj() {
+  const navigate = useNavigate();
+
+  async function dodaj(sveuciliste) {
+    const odgovor = await SveucilisteService.post(sveuciliste);
+    if (odgovor.greska) {
+      console.log(odgovor.poruka);
+      alert('pogledaj konzolu');
+      return;
+    }
+    navigate(RoutesNames.SVEUCILISTE_PREGLED);
+  }
+
+  function obradiSubmit(e) {
+    e.preventDefault();
+
+    const podaci = new FormData(e.target);
+    const svuciliste = {
+      naziv: podaci.get('naziv'),
+      adresa: podaci.get('adresa'),
+    };
+    dodaj(svuciliste);
+  }
+
+  return (
+    <>
+      <HeroText
+        beforeText='Dodaj sveučilište'
+        text='Dodaj sveučilište'
+      />
+      <CenteredContainer>
+        <StyledFormContainer>
+          <Form onSubmit={obradiSubmit}>
+            <Form.Group controlId='naziv'>
+              <Form.Label>Naziv sveučilišta</Form.Label>
+              <Form.Control
+                type='text'
+                placeholder='Unesite naziv sveučilišta'
+                required
+              />
+            </Form.Group>
+
+            <Form.Group controlId='adresa'>
+              <Form.Label>Adresa sveučilišta</Form.Label>
+              <Form.Control
+                type='text'
+                placeholder='Unesite adresu sveučilišta'
+                required
+              />
+            </Form.Group>
+
+            <StyledButtonContainer>
+              <Link to={RoutesNames.SVEUCILISTE_PREGLED}>
+                <Button variant='danger'>Odustani</Button>
+              </Link>
+              <SubmitButton>Dodaj</SubmitButton>
+            </StyledButtonContainer>
+          </Form>
+        </StyledFormContainer>
+      </CenteredContainer>
+    </>
+  );
+}
+
+export default SveucilistaDodaj;

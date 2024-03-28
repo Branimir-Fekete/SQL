@@ -82,9 +82,9 @@ const StyledDeleteButton = styled.button`
   }
 `;
 
-function DeleteButton({ children }) {
+function DeleteButton({ children, onClick }) {
   return (
-    <StyledDeleteButton>
+    <StyledDeleteButton onClick={onClick}>
       <span></span>
       {children}
     </StyledDeleteButton>

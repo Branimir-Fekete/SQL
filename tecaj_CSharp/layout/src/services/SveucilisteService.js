@@ -14,21 +14,21 @@ async function get() {
 
 async function post(sveuciliste) {
   return await HttpService.post(naziv, sveuciliste)
-    .then((response) => {
-      return { error: false, message: response.data };
+    .then((odgovor) => {
+      return { greska: false, poruka: odgovor.data };
     })
-    .catch((error) => {
-      return { error: true, message: error };
+    .catch((e) => {
+      return { greska: true, poruka: e };
     });
 }
 
-async function _delete(sveucilisteId) {
-  return await HttpService.delete(naziv + '/' + sveucilisteId)
-    .then((response) => {
-      return { error: false, message: response.data.message };
+async function _delete(sifraSvucilista) {
+  return await HttpService.delete(naziv + '/' + sifraSvucilista)
+    .then((odgovor) => {
+      return { greska: false, poruka: odgovor.data.poruka };
     })
-    .catch((error) => {
-      return { error: true, message: error };
+    .catch((e) => {
+      return { greska: true, poruka: e };
     });
 }
 

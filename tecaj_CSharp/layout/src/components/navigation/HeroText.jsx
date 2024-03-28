@@ -5,6 +5,7 @@ const Container = styled.div`
   display: flex;
   justify-content: center;
   margin: 4rem 1rem;
+  position:relative;
 `;
 
 const animate = keyframes`
