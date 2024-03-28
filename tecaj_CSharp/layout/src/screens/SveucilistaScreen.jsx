@@ -1,81 +1,85 @@
-import React, { useState } from 'react';
+import { useEffect, useState } from 'react';
+import Container from 'react-bootstrap/Container';
+import { Button, Table } from 'react-bootstrap';
+import SveucilisteService from '../services/SveucilisteService';
 import styled from 'styled-components';
-import ButtonContainer from '../components/buttons/ButtonContainer';
 import HeroText from '../components/navigation/HeroText';
 
-const FormContainer = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 70vh;
-`;
-
-const Form = styled.form`
-  display: flex;
-  flex-direction: column;
-  width: 50%;
-  align-items: center;
-  gap: 20px;
-`;
-
-const Input = styled.input`
-  width: 80%;
-  padding: 10px;
-  border: 2px solid #00308f;
-  color: #00308f;
-  &:focus {
-    outline: none;
-    border-color: #00308f;
+const StyledTable = styled(Table)`
+  margin-top: 20px;
+  th {
+    background-color: #f2f2f2;
+  }
+  td,
+  th {
+    padding: 10px;
+    text-align: center;
+    border: 1px solid black;
   }
 `;
 
-function SveucilistaScreen() {
-  const [formData, setFormData] = useState({
-    naziv: '',
-    adresa: '',
-  });
+const CenteredContainer = styled(Container)`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh; /* Prilagodite visinu prema potrebi */
+`;
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData({
-      ...formData,
-      [name]: value,
-    });
-  };
+export default function SveucilistaScreen() {
+  const [sveucilista, setSveucilista] = useState([]);
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  async function dohvatiSveucilista() {
+    try {
+      const response = await SveucilisteService.get();
+      setSveucilista(response);
+    } catch (error) {
+      console.log(error);
+    }
+  }
 
-    console.log('Podaci su:', formData);
-  };
+  useEffect(() => {
+    dohvatiSveucilista();
+  }, []);
 
   return (
     <>
       <HeroText
-        beforeText='Sveučilišta'
-        text='Sveučilišta'
+        beforeText='Svučilišta'
+        text='Svučilišta'
       />
-      <FormContainer>
-        <Form onSubmit={handleSubmit}>
-          <Input
-            type='text'
-            name='naziv'
-            placeholder='Naziv sveučilišta'
-            value={formData.naziv}
-            onChange={handleChange}
-          />
-          <Input
-            type='text'
-            name='adresa'
-            placeholder='Adresa sveučilišta'
-            value={formData.adresa}
-            onChange={handleChange}
-          />
-          <ButtonContainer />
-        </Form>
-      </FormContainer>
+      <CenteredContainer>
+        <StyledTable
+          striped
+          bordered
+          hover
+          responsive
+        >
+          <thead>
+            <tr>
+              <th>Naziv</th>
+              <th>Adresa</th>
+              <th>Akcija</th>
+            </tr>
+          </thead>
+          <tbody>
+            {sveucilista &&
+              sveucilista.map((sveuciliste, index) => (
+                <tr key={index}>
+                  <td>{sveuciliste.naziv}</td>
+                  <td>{sveuciliste.adresa}</td>
+                  <td>
+                    <Button
+                      onClick={() => console.log('Obriši')}
+                      variant='danger'
+                    >
+                      Obriši
+                    </Button>
+                  </td>
+                </tr>
+              ))}
+          </tbody>
+        </StyledTable>
+      </CenteredContainer>
     </>
   );
 }
-
-export default SveucilistaScreen;
