@@ -28,6 +28,10 @@ function App() {
               element={<HomeScreen />}
             />
             <Route
+              path='/SveucilistaScreen'
+              element={<SveucilistaScreen />}
+            />
+            <Route
               path='/StudentScreen'
               element={<StudentScreen />}
             />
@@ -42,10 +46,6 @@ function App() {
             <Route
               path='/IspitiScreen'
               element={<IspitiScreen />}
-            />
-            <Route
-              path='/SveucilistaScreen'
-              element={<SveucilistaScreen />}
             />
             <Route
               path={RoutesNames.SVEUCILISTE_PREGLED}

@@ -12,13 +12,14 @@ import AddButton from '../components/buttons/AddButton';
 const StyledTable = styled(Table)`
   margin-top: 20px;
   th {
-    background-color: #f2f2f2;
+    background-color: #89CFF0;
+    border-radius: 15px;
   }
   td,
   th {
     padding: 10px;
     text-align: center;
-    border-bottom: 1px solid black;
+    border-bottom: 1px solid #89CFF0;
   }
 `;
 

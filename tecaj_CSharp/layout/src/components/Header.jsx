@@ -137,12 +137,12 @@ function Header() {
 }
 
 const menuItems = [
+  { to: '/SveucilistaScreen', label: 'Sveučilišta' },
   { to: '/HomeScreen', label: 'Početna stranica' },
   { to: '/StudentScreen', label: 'Studenti' },
   { to: '/ProfesorScreen', label: 'Profesori' },
   { to: '/KolegijiScreen', label: 'Kolegiji' },
   { to: '/IspitiScreen', label: 'Ispiti' },
-  { to: '/SveucilistaScreen', label: 'Sveučilišta' },
 ];
 
 export default Header;
