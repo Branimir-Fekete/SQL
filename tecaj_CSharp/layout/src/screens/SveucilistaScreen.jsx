@@ -7,6 +7,7 @@ import HeroText from '../components/navigation/HeroText';
 import DeleteButton from '../components/buttons/DeleteButton';
 import { Link } from 'react-router-dom';
 import { RoutesNames } from '../constants';
+import AddButton from '../components/buttons/AddButton';
 
 const StyledTable = styled(Table)`
   margin-top: 20px;
@@ -66,7 +67,9 @@ export default function SveucilistaScreen() {
         text='Svučilišta'
       />
       <CenteredContainer>
-        <Link to={RoutesNames.SVEUCILISTE_NOVI}>Dodaj sveučičište</Link>
+        <Link to={RoutesNames.SVEUCILISTE_NOVI}>
+          <AddButton>Dodaj svučilište</AddButton>
+        </Link>
         <StyledTable
           striped
           bordered

@@ -7,25 +7,43 @@ import HeroText from '../components/navigation/HeroText';
 import { Form, Button } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import SubmitButton from '../components/buttons/SubmitButton';
+import BackButton from '../components/buttons/BackButton';
 
 const CenteredContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  min-height: 100vh;
 `;
 
 const StyledFormContainer = styled.div`
   width: 50%;
-  margin-top: 20px;
   padding: 20px;
 `;
 
 const StyledButtonContainer = styled.div`
   display: flex;
   justify-content: space-between;
-  margin-top: 20px;
+  margin-top: 100px;
+`;
+
+const StyledFormGroup = styled(Form.Group)`
+  margin-bottom: 20px;
+
+  label {
+    font-weight: bold;
+    font-size: 18px;
+  }
+
+  input {
+    border: 2px solid #00308F;
+    border-radius: 4px;
+    padding: 10px;
+    width: 100%;
+    box-sizing: border-box;
+    margin-bottom: 20px;
+    margin-top: 10px;
+  }
 `;
 
 function SveucilistaDodaj() {
@@ -61,27 +79,27 @@ function SveucilistaDodaj() {
       <CenteredContainer>
         <StyledFormContainer>
           <Form onSubmit={obradiSubmit}>
-            <Form.Group controlId='naziv'>
+            <StyledFormGroup controlId='naziv'>
               <Form.Label>Naziv sveučilišta</Form.Label>
               <Form.Control
                 type='text'
                 placeholder='Unesite naziv sveučilišta'
                 required
               />
-            </Form.Group>
+            </StyledFormGroup>
 
-            <Form.Group controlId='adresa'>
+            <StyledFormGroup controlId='adresa'>
               <Form.Label>Adresa sveučilišta</Form.Label>
               <Form.Control
                 type='text'
                 placeholder='Unesite adresu sveučilišta'
                 required
               />
-            </Form.Group>
+            </StyledFormGroup>
 
             <StyledButtonContainer>
               <Link to={RoutesNames.SVEUCILISTE_PREGLED}>
-                <Button variant='danger'>Odustani</Button>
+                <BackButton>Natrag</BackButton>
               </Link>
               <SubmitButton>Dodaj</SubmitButton>
             </StyledButtonContainer>
