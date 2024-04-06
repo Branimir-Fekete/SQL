@@ -36,7 +36,7 @@ const StyledFormGroup = styled(Form.Group)`
   }
 
   input {
-    border: 2px solid #00308F;
+    border: 2px solid #00308f;
     border-radius: 4px;
     padding: 10px;
     width: 100%;

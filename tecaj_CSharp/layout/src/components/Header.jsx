@@ -118,6 +118,8 @@ function Header() {
     setIsOpen(!isOpen);
   };
 
+
+  
   return (
     <HeaderContainer isOpen={isOpen}>
       <HamburgerIcon onClick={toggleSidebar}>
@@ -137,8 +139,8 @@ function Header() {
 }
 
 const menuItems = [
-  { to: '/SveucilistaScreen', label: 'Sveučilišta' },
-  { to: '/HomeScreen', label: 'Početna stranica' },
+  { to: '/sveucilista', label: 'Sveučilišta' },
+  { to: '/', label: 'Početna stranica' },
   { to: '/StudentScreen', label: 'Studenti' },
   { to: '/ProfesorScreen', label: 'Profesori' },
   { to: '/KolegijiScreen', label: 'Kolegiji' },

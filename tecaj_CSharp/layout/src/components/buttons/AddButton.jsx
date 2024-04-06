@@ -14,6 +14,8 @@ const LinkContainer = styled.div`
   display: flex;
   background: #051130;
   padding: 10px;
+  max-width: 175px;
+  margin-bottom: 20px;
 `;
 
 const Link = styled.a`
