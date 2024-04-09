@@ -1,10 +1,10 @@
-import { Button, Col, Container, Form, Row } from 'react-bootstrap';
+import { Col, Container, Form, Row } from 'react-bootstrap';
 import { Link, useNavigate } from 'react-router-dom';
 import { RoutesNames } from '../../constants';
 import SveucilisteService from '../../services/SveucilisteService';
-import AddButton from '../../components/buttons/AddButton';
-import UpdateButton from '../../components/buttons/UpdateButton';
 import '../../components/buttons/BackButton.css';
+import '../../components/buttons/UpdateButton.css';
+import HeroText from '../../components/navigation/HeroText';
 
 export default function SveucilistaDodaj() {
   const navigate = useNavigate();
@@ -29,12 +29,15 @@ export default function SveucilistaDodaj() {
       adresa: podaci.get('naziv'),
     };
 
-    //console.log(smjer);
     dodaj(sveuciliste);
   }
 
   return (
     <Container>
+      <HeroText
+        beforeText='DODAVANJE SVEUČILIŠTA'
+        text='DODAVANJE SVEUČILIŠTA'
+      />
       <Form onSubmit={obradiSubmit}>
         <Form.Group controlId='naziv'>
           <Form.Label>Naziv</Form.Label>
@@ -57,14 +60,19 @@ export default function SveucilistaDodaj() {
         <Row>
           <Col>
             <Link
-              className='BackButton'
+              className='backBtn'
               to={RoutesNames.SVEUCILISTE_PREGLED}
             >
               Odustani
             </Link>
           </Col>
           <Col>
-            <UpdateButton type='submit'>DODAJ</UpdateButton>
+            <button
+              type='submit'
+              className='addBtn'
+            >
+              DODAJ
+            </button>
           </Col>
         </Row>
       </Form>

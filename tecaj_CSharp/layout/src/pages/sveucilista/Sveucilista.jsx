@@ -1,13 +1,13 @@
 import { useEffect, useState } from 'react';
 import Container from 'react-bootstrap/Container';
-import { Button, Table } from 'react-bootstrap';
+import { Table } from 'react-bootstrap';
 import { Link, useNavigate } from 'react-router-dom';
 import { RoutesNames } from '../../constants';
 import SveucilisteService from '../../services/SveucilisteService';
 import HeroText from '../../components/navigation/HeroText';
-import AddButton from '../../components/buttons/AddButton';
-import DeleteButton from '../../components/buttons/DeleteButton';
-import UpdateButton from '../../components/buttons/UpdateButton';
+import '../../components/buttons/DeleteButton.css';
+import '../../components/buttons/AddButton.css';
+import '../../components/buttons/UpdateButton.css';
 
 export default function Sveucilista() {
   const [sveucilista, setSveucilista] = useState();
@@ -48,14 +48,19 @@ export default function Sveucilista() {
         text='Sveučilišta'
       />
       <Container>
-        <AddButton>
-          <Link to={RoutesNames.SVEUCILISTE_NOVI}> Dodaj </Link>
-        </AddButton>
+        <Link
+          to={RoutesNames.SVEUCILISTE_NOVI}
+          className='addBtn'
+        >
+          Dodaj
+        </Link>
+
         <Table
           striped
           bordered
           hover
           responsive
+          className='mt-5'
         >
           <thead>
             <tr>
@@ -72,16 +77,20 @@ export default function Sveucilista() {
                   <td>{sveuciliste.adresa}</td>
 
                   <td>
-                    <DeleteButton onClick={() => obrisi(sveuciliste.sifra)}>
+                    <button
+                      className='deleteBtn'
+                      onClick={() => obrisi(sveuciliste.sifra)}
+                    >
                       Obriši
-                    </DeleteButton>
-                    <UpdateButton
+                    </button>
+                    <button
+                      className='updateBtn'
                       onClick={() => {
                         navigate(`/sveucilista/${sveuciliste.sifra}`);
                       }}
                     >
                       Promijeni
-                    </UpdateButton>
+                    </button>
                   </td>
                 </tr>
               ))}

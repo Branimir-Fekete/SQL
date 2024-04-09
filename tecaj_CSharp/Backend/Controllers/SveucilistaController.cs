@@ -22,6 +22,13 @@ namespace Backend.Controllers
             return new JsonResult(_context.Sveucilista.ToList());
         }
 
+        [HttpGet]
+        [Route("{sifra:int}")]
+        public IActionResult GetBySifra(int sifra)
+        {
+            return new JsonResult(_context.Sveucilista.Find(sifra));
+        }
+
         [HttpPost]
         public IActionResult Post(Sveucilista sveucilista)
         {

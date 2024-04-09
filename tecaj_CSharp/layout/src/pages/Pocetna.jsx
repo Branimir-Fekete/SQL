@@ -6,8 +6,8 @@ export default function Pocetna() {
     <>
       <Container>
         <HeroText
-          beforeText='SVEUČILIŠTE'
-          text='SVEUČILIŠTE'
+          beforeText='STUDOMAT APPLIKACIJA'
+          text='STUDOMAT APPLIKACIJA'
         />
       </Container>
     </>

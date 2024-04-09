@@ -3,6 +3,9 @@ import { Link, useNavigate, useParams } from 'react-router-dom';
 import { RoutesNames } from '../../constants';
 import { useEffect, useState } from 'react';
 import SveucilisteService from '../../services/SveucilisteService';
+import '../../components/buttons/BackButton.css';
+import '../../components/buttons/UpdateButton.css';
+import HeroText from '../../components/navigation/HeroText';
 
 export default function SveucilistaPromjena() {
   const navigate = useNavigate();
@@ -51,6 +54,10 @@ export default function SveucilistaPromjena() {
 
   return (
     <Container>
+      <HeroText
+        beforeText='SVEUČILIŠTE PROMIJENA'
+        text='SVEUČILIŠTE PROMIJENA'
+      />
       <Form onSubmit={obradiSubmit}>
         <Form.Group controlId='naziv'>
           <Form.Label>Naziv</Form.Label>
@@ -75,7 +82,7 @@ export default function SveucilistaPromjena() {
         <Row>
           <Col>
             <Link
-              className='btn btn-danger siroko'
+              className='backBtn'
               to={RoutesNames.SVEUCILISTE_PREGLED}
             >
               Odustani
@@ -83,8 +90,7 @@ export default function SveucilistaPromjena() {
           </Col>
           <Col>
             <Button
-              className='siroko'
-              variant='primary'
+              className='updateBtn'
               type='submit'
             >
               Promjeni
