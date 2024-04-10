@@ -31,7 +31,7 @@ CREATE TABLE
     opis TEXT
   );
 
-CREATE TABLE
+CREATE TABLE --vezna
   profesor_kolegij (
     profesor_sifra INT,
     kolegij_sifra INT,
@@ -62,7 +62,7 @@ CREATE TABLE
     FOREIGN KEY (sveuciliste_sifra) REFERENCES sveucilista (sifra)
   );
 
-CREATE TABLE
+CREATE TABLE --vezna
   student_profesori (
     student_sifra INT,
     profesor_sifra INT,
@@ -70,7 +70,7 @@ CREATE TABLE
     FOREIGN KEY (profesor_sifra) REFERENCES profesori (sifra)
   );
 
-CREATE TABLE
+CREATE TABLE --vezna
   student_kolegiji (
     student_sifra INT,
     kolegij_sifra INT,
@@ -78,7 +78,7 @@ CREATE TABLE
     FOREIGN KEY (kolegij_sifra) REFERENCES kolegiji (sifra)
   );
 
-CREATE TABLE
+CREATE TABLE --vezna
   student_ispiti (
     student_sifra INT,
     ispit_sifra INT,
@@ -363,48 +363,40 @@ VALUES
 ====================================================================================
 SELECT (PROVJERA STANJA TABLICA)
 ====================================================================================
- */
-SELECT
-  *
-FROM
-  sveucilista;
-
-SELECT
-  *
-FROM
-  profesori;
-
-SELECT
-  *
-FROM
-  kolegiji;
-
-SELECT
-  *
-FROM
-  ispiti;
-
-SELECT
-  *
-FROM
-  studenti;
-
-SELECT
-  *
-FROM
-  profesor_kolegij;
-
-SELECT
-  *
-FROM
-  student_profesori;
-
-SELECT
-  *
-FROM
-  student_kolegiji;
-
-SELECT
-  *
-FROM
-  student_ispiti;
+--  */
+-- SELECT
+--   *
+-- FROM
+--   sveucilista;
+-- SELECT
+--   *
+-- FROM
+--   profesori;
+-- SELECT
+--   *
+-- FROM
+--   kolegiji;
+-- SELECT
+--   *
+-- FROM
+--   ispiti;
+-- SELECT
+--   *
+-- FROM
+--   studenti;
+-- SELECT
+--   *
+-- FROM
+--   profesor_kolegij;
+-- SELECT
+--   *
+-- FROM
+--   student_profesori;
+-- SELECT
+--   *
+-- FROM
+--   student_kolegiji;
+-- SELECT
+--   *
+-- FROM
+--   student_ispiti;
