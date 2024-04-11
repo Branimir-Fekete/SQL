@@ -9,5 +9,11 @@ namespace Backend.Data
 
         public DbSet<Sveucilista> Sveucilista { get; set; }
 
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Profesori>().HasOne(p => p.Sveucilista);
+
+        }
+
     }
 }
